@@ -14,7 +14,6 @@ Ova baza podataka sadrži informacije o proizvođačima i njihovim automobilima.
 - **Jezik dokumentacije**: Hrvatski
 - **Kontakt**: jg53795@fer.hr
 - **Skripte za izvoz podataka**: `export_to_csv.py` i `export_to_json.py`
-- **Lokacija skripti**: `skripte` folder
 
 ## Korištenje baze podataka
 
