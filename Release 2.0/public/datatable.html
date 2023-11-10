@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+
+    <title>Pregled Automobila</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="index.html">Početna</a>
+        <a class="active" href="datatable.html">Pregled</a>
+    </div>
+    <div class="content">
+        <div class="container">
+            <h1>Pregled Automobila</h1>
+
+            <!-- Forma za pretragu -->
+            <div id="filter-form">
+                <select id="column-select">
+                    <option value="all">Sva polja</option>
+                    <option value="naziv_proizvođača">Naziv Proizvođača</option>
+                    <option value="sjedište_proizvođača">Sjedište Proizvođača</option>
+                    <option value="model">Model</option>
+                    <option value="godina_proizvodnje">Godina Proizvodnje</option>
+                    <option value="boja">Boja</option>
+                    <option value="motor">Motor</option>
+                    <option value="snaga_motora">Snaga Motora (KS)</option>
+                    <option value="vrsta_goriva">Vrsta Goriva</option>
+                    <option value="broj_vrata">Broj Vrata</option>
+                    <option value="cijena">Cijena</option>
+                    <option value="težina_vozila">Težina Vozila (kg)</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Pretraži...">
+                <button type="button" id="search-button">Pretraži</button>
+            </div>
+            <button id="download-csv">Preuzmi CSV</button>
+            <button id="download-json">Preuzmi JSON</button>
+            <!-- Tablica za prikaz podataka -->
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Naziv Proizvođača</th>
+                        <th>Sjedište Proizvođača</th>
+                        <th>Model</th>
+                        <th>Godina Proizvodnje</th>
+                        <th>Boja</th>
+                        <th>Motor</th>
+                        <th>Snaga Motora (KS)</th>
+                        <th>Vrsta Goriva</th>
+                        <th>Broj Vrata</th>
+                        <th>Cijena</th>
+                        <th>Težina Vozila (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Podaci -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Funkcija za izvođenje pretrage
+            function performSearch() {
+                var searchTerm = $('#search-input').val();
+                var searchColumn = $('#column-select').val();
+                fetchData(searchTerm, searchColumn);
+            }
+
+            // Event listener za klik gumba Pretraži
+            $('#search-button').on('click', performSearch);
+
+            // Event listener za tipku Enter unutar tekstualnog polja
+            $('#search-input').on('keyup', function (e) {
+                if (e.key === 'Enter') { // Provjera je li pritisnuta tipka Enter
+                    performSearch();
+                }
+            });
+
+            // Event listener za submit događaj forme
+            $('#filter-form').on('submit', function (e) {
+                e.preventDefault(); // Sprečava standardno ponašanje forme
+                performSearch();
+            });
+
+            // Preuzimanje
+            $('#download-csv').on('click', function () {
+                download('csv');
+            });
+            $('#download-json').on('click', function () {
+                download('json');
+            });
+            function download(format) {
+                var searchTerm = $('#search-input').val();
+                var searchColumn = $('#column-select').val();
+                window.location.href = `/api/automobili/download?search=${searchTerm}&column=${searchColumn}&format=${format}`;
+            }
+
+            // AJAX funkcija za dohvat podataka
+            function fetchData(searchTerm, searchColumn) {
+                $.ajax({
+                    url: '/api/automobili',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        search: searchTerm,
+                        column: searchColumn
+                    },
+                    success: function (data) {
+                        var tbodyHtml = '';
+                        data.forEach(function (item) {
+                            tbodyHtml += '<tr>';
+                            tbodyHtml += '<td>' + item.naziv_proizvođača + '</td>';
+                            tbodyHtml += '<td>' + item.sjedište_proizvođača + '</td>';
+                            tbodyHtml += '<td>' + item.model + '</td>';
+                            tbodyHtml += '<td>' + item.godina_proizvodnje + '</td>';
+                            tbodyHtml += '<td>' + item.boja + '</td>';
+                            tbodyHtml += '<td>' + item.motor + '</td>';
+                            tbodyHtml += '<td>' + item.snaga_motora + '</td>';
+                            tbodyHtml += '<td>' + item.vrsta_goriva + '</td>';
+                            tbodyHtml += '<td>' + item.broj_vrata + '</td>';
+                            tbodyHtml += '<td>' + item.cijena + '</td>';
+                            tbodyHtml += '<td>' + item.težina_vozila + '</td>';
+                            tbodyHtml += '</tr>';
+                        });
+                        $('#data-table tbody').html(tbodyHtml);
+                    },
+                    error: function (error) {
+                        console.error("Došlo je do greške prilikom dohvata podataka: ", error);
+                    }
+                });
+            }
+
+            // Učitavanje početne podatke bez pretrage
+            fetchData('', 'all');
+        });
+    </script>
+</body>
+
+</html>
