@@ -1,26 +1,212 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://yourdomain.com/automobili.json",
+    "$id": "https://raw.githubusercontent.com/JerkoG/OrLab/main/Release%202.0/public/automobili.json",
     "type": "array",
-    "title": "Skup automobila",
-    "description": "Skup podataka o automobilima.",
-    "items": {
-        "type": "object",
-        "properties": {
-            "Proizvodjac": {
-                "type": "string"
-            },
-            "Model": {
-                "type": "string"
-            },
-            "GodinaProizvodnje": {
-                "type": "integer"
+    "title": "Baza podataka Automobili",
+    "description": "Sadrži informacije o proizvođačima automobila i detalje o pojedinim automobilima.",
+    "properties": {
+        "proizvođači": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Jedinstveni identifikator proizvođača",
+                        "examples": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    },
+                    "naziv_proizvođača": {
+                        "type": "string",
+                        "description": "Naziv proizvođača automobila",
+                        "examples": [
+                            "Toyota",
+                            "Ford",
+                            "Honda",
+                            "BMW",
+                            "Volkswagen"
+                        ]
+                    },
+                    "sjedište_proizvođača": {
+                        "type": "string",
+                        "description": "Sjedište proizvođača",
+                        "examples": [
+                            "Toyota City, Japan",
+                            "Dearborn, Michigan, SAD",
+                            "Tokyo, Japan",
+                            "Munich, Njemačka",
+                            "Wolfsburg, Njemačka"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "naziv_proizvođača",
+                    "sjedište_proizvođača"
+                ]
             }
         },
-        "required": [
-            "Proizvodjac",
-            "Model",
-            "GodinaProizvodnje"
-        ]
-    }
+        "automobili": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Jedinstveni identifikator automobila",
+                        "examples": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    },
+                    "proizvođač_id": {
+                        "type": "integer",
+                        "description": "Identifikator proizvođača automobila",
+                        "examples": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    },
+                    "model": {
+                        "type": "string",
+                        "description": "Model automobila",
+                        "examples": [
+                            "Rav4",
+                            "Corolla",
+                            "Explorer",
+                            "Fiesta",
+                            "Civic",
+                            "Accord",
+                            "X7",
+                            "3 Series",
+                            "Jetta",
+                            "Passat"
+                        ]
+                    },
+                    "godina_proizvodnje": {
+                        "type": "integer",
+                        "description": "Godina proizvodnje automobila",
+                        "examples": [
+                            2022,
+                            2021,
+                            2023
+                        ]
+                    },
+                    "boja": {
+                        "type": "string",
+                        "description": "Boja automobila",
+                        "examples": [
+                            "Siva",
+                            "Crvena",
+                            "Plava",
+                            "Crna",
+                            "Bijela"
+                        ]
+                    },
+                    "motor": {
+                        "type": "string",
+                        "description": "Opis motora automobila",
+                        "examples": [
+                            "2.5L I4",
+                            "2.0L I4",
+                            "3.0L V6",
+                            "1.6L I4",
+                            "1.5L I4",
+                            "3.0L Inline-6",
+                            "1.4L I4",
+                            "1.8L I4"
+                        ]
+                    },
+                    "snaga_motora": {
+                        "type": "integer",
+                        "description": "Snaga motora u konjskim snagama",
+                        "examples": [
+                            203,
+                            168,
+                            300,
+                            120,
+                            174,
+                            192,
+                            335,
+                            255,
+                            147
+                        ]
+                    },
+                    "vrsta_goriva": {
+                        "type": "string",
+                        "description": "Vrsta goriva koju automobil koristi",
+                        "examples": [
+                            "Benzin",
+                            "Dizel"
+                        ]
+                    },
+                    "broj_vrata": {
+                        "type": "integer",
+                        "description": "Broj vrata na automobilu",
+                        "examples": [
+                            4,
+                            5
+                        ]
+                    },
+                    "cijena": {
+                        "type": "number",
+                        "description": "Cijena automobila",
+                        "examples": [
+                            "29000.00",
+                            "25000.00",
+                            "40000.00",
+                            "18000.00",
+                            "27000.00",
+                            "55000.00",
+                            "35000.00",
+                            "22000.00",
+                            "28000.00"
+                        ]
+                    },
+                    "težina_vozila": {
+                        "type": "number",
+                        "description": "Težina automobila",
+                        "examples": [
+                            "1400.00",
+                            "1300.00",
+                            "1800.00",
+                            "1100.00",
+                            "1200.00",
+                            "2100.00",
+                            "1500.00",
+                            "1600.00"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "proizvođač_id",
+                    "model",
+                    "godina_proizvodnje",
+                    "boja",
+                    "motor",
+                    "snaga_motora",
+                    "vrsta_goriva",
+                    "broj_vrata",
+                    "cijena",
+                    "težina_vozila"
+                ]
+            }
+        }
+    },
+    "required": [
+        "proizvođači",
+        "automobili"
+    ]
 }
