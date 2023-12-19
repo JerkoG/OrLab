@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <title>Pregled Automobila</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="index.html">Početna</a>
+        <a class="active" href="datatable.html">Pregled</a>
+        <a href="add_car.html">Dodaj automobil</a>
+        <a href="update_car.html">Ažuriraj Automobil</a>
+    </div>
+    <div class="content">
+        <div class="container">
+            <h1>Pregled Automobila</h1>
+            <div id="filter-form">
+                <select id="column-select">
+                    <option value="all">Sva polja</option>
+                    <option value="marka">Marka</option>
+                    <option value="model">Model</option>
+                    <option value="godina_proizvodnje">Godina Proizvodnje</option>
+                    <option value="boje">Boje</option>
+                    <option value="motor">Motor</option>
+                    <option value="snaga_motora">Snaga Motora (KS)</option>
+                    <option value="vrsta_goriva">Vrsta Goriva</option>
+                    <option value="broj_vrata">Broj Vrata</option>
+                    <option value="cijena">Cijena</option>
+                    <option value="težina_vozila">Težina Vozila (kg)</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Pretraži...">
+                <button type="button" id="search-button">Pretraži</button>
+            </div>
+            <div>
+                <button id="download-csv">Preuzmi CSV</button>
+                <button id="download-json">Preuzmi JSON</button>
+            </div>
+
+            <div> <!-- Input polja za raspon cijene -->
+                <input type="number" id="min-cijena" placeholder="Min cijena">
+                <input type="number" id="max-cijena" placeholder="Max cijena">
+                <button id="search-price">Pretraži po cijeni</button>
+
+
+
+                <!-- Input polja za raspon godina -->
+                <input type="number" id="min-godina" placeholder="Min godina">
+                <input type="number" id="max-godina" placeholder="Max godina">
+                <button id="search-year">Pretraži po godini</button>
+            </div>
+            <div>
+                <input type="number" id="id-input" placeholder="Unesi ID automobila">
+                <button id="search-id">Pretraži po ID-u</button>
+            </div>
+
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Marka</th>
+                        <th>Model</th>
+                        <th>Godina Proizvodnje</th>
+                        <th>Boje</th>
+                        <th>Motor</th>
+                        <th>Snaga Motora (KS)</th>
+                        <th>Vrsta Goriva</th>
+                        <th>Broj Vrata</th>
+                        <th>Cijena</th>
+                        <th>Težina Vozila (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Podaci će biti ovdje -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function deleteAutomobil(id) {
+            if (confirm('Jeste li sigurni da želite obrisati ovaj automobil?')) {
+                $.ajax({
+                    url: '/api/automobili/' + id,
+                    type: 'DELETE',
+                    success: function () {
+                        alert('Automobil obrisan!');
+                        fetchData(); // Ponovno učitavanje podataka
+                    },
+                    error: function () {
+                        alert('Greška pri brisanju automobila.');
+                    }
+                });
+            }
+        }
+
+        function fetchData(searchTerm, searchColumn) {
+            $.ajax({
+                url: '/api/automobili',
+                type: 'GET',
+                dataType: 'json',
+                data: { search: searchTerm, column: searchColumn },
+                success: function (data) {
+                    var tbodyHtml = '';
+                    data.forEach(function (item) {
+                        tbodyHtml += '<tr>';
+                        tbodyHtml += '<td>ID: ' + item.id + ' <button onclick="deleteAutomobil(' + item.id + ')">Obriši</button></td>';
+                        tbodyHtml += '<td>' + item.marka + '</td>';
+                        tbodyHtml += '<td>' + item.model + '</td>';
+                        tbodyHtml += '<td>' + item.godina_proizvodnje + '</td>';
+                        tbodyHtml += '<td>' + item.boje + '</td>';
+                        tbodyHtml += '<td>' + item.motor + '</td>';
+                        tbodyHtml += '<td>' + item.snaga_motora + '</td>';
+                        tbodyHtml += '<td>' + item.vrsta_goriva + '</td>';
+                        tbodyHtml += '<td>' + item.broj_vrata + '</td>';
+                        tbodyHtml += '<td>' + item.cijena + '</td>';
+                        tbodyHtml += '<td>' + item.težina_vozila + '</td>';
+                        tbodyHtml += '</tr>';
+                    });
+                    $('#data-table tbody').html(tbodyHtml);
+                },
+                error: function (error) {
+                    console.error("Došlo fetchdata", error);
+                }
+            });
+        }
+        $(document).ready(function () {
+            function performSearch() {
+                var searchTerm = $('#search-input').val();
+                var searchColumn = $('#column-select').val();
+                fetchData(searchTerm, searchColumn);
+            }
+
+            $('#search-button').on('click', performSearch);
+            $('#search-input').on('keyup', function (e) {
+                if (e.key === 'Enter') { performSearch(); }
+            });
+
+            function download(format) {
+                var searchTerm = $('#search-input').val();
+                var searchColumn = $('#column-select').val();
+                window.location.href = `/api/automobili/download?search=${searchTerm}&column=${searchColumn}&format=${format}`;
+            }
+
+            $('#download-csv').on('click', function () { download('csv'); });
+            $('#download-json').on('click', function () { download('json'); });
+
+            // Funkcija za izvođenje pretrage po cijeni
+            function performPriceSearch() {
+                const minCijena = $('#min-cijena').val() || 0;;
+                const maxCijena = $('#max-cijena').val() || 0;;
+                fetchDataByPrice(minCijena, maxCijena);
+            }
+
+            // Funkcija za izvođenje pretrage po godini proizvodnje
+            function performYearSearch() {
+                const minGodina = $('#min-godina').val() || 0;;
+                const maxGodina = $('#max-godina').val() || 0;;
+                fetchDataByYear(minGodina, maxGodina);
+            }
+
+            // Event listener za gumb "Pretraži po cijeni"
+            $('#search-price').on('click', function () {
+                performPriceSearch();
+            });
+
+            // Event listener za gumb "Pretraži po godini proizvodnje"
+            $('#search-year').on('click', function () {
+                performYearSearch();
+            });
+
+            $('#search-id').on('click', function () {
+                const id = $('#id-input').val();
+                if (id) {
+                    fetchAutomobilById(id);
+                } else {
+                    alert('Unesite ID automobila.');
+                }
+            });
+
+            // Funkcija za dohvaćanje podataka prema cijeni
+            function fetchDataByPrice(minCijena, maxCijena) {
+                $.ajax({
+                    url: '/api/automobili/cijena',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { minCijena: minCijena, maxCijena: maxCijena },
+                    success: function (data) {
+                        var tbodyHtml = '';
+                        data.forEach(function (item) {
+                            tbodyHtml += '<tr>';
+                            tbodyHtml += '<td>ID: ' + item.id + ' <button onclick="deleteAutomobil(' + item.id + ')">Obriši</button></td>';
+                            tbodyHtml += '<td>' + item.marka + '</td>';
+                            tbodyHtml += '<td>' + item.model + '</td>';
+                            tbodyHtml += '<td>' + item.godina_proizvodnje + '</td>';
+                            tbodyHtml += '<td>' + item.boje + '</td>';
+                            tbodyHtml += '<td>' + item.motor + '</td>';
+                            tbodyHtml += '<td>' + item.snaga_motora + '</td>';
+                            tbodyHtml += '<td>' + item.vrsta_goriva + '</td>';
+                            tbodyHtml += '<td>' + item.broj_vrata + '</td>';
+                            tbodyHtml += '<td>' + item.cijena + '</td>';
+                            tbodyHtml += '<td>' + item.težina_vozila + '</td>';
+                            tbodyHtml += '</tr>';
+                        });
+                        $('#data-table tbody').html(tbodyHtml);
+                    },
+                    error: function (error) {
+                        console.error('Greška fetchbyprice', error);
+                    },
+                });
+            }
+
+
+            // Funkcija za dohvaćanje podataka prema godini proizvodnje
+            function fetchDataByYear(minGodina, maxGodina) {
+                $.ajax({
+                    url: '/api/automobili/godina',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { minGodina: minGodina, maxGodina: maxGodina },
+                    success: function (data) {
+                        var tbodyHtml = '';
+                        data.forEach(function (item) {
+                            tbodyHtml += '<tr>';
+                            tbodyHtml += '<td>ID: ' + item.id + ' <button onclick="deleteAutomobil(' + item.id + ')">Obriši</button></td>';
+                            tbodyHtml += '<td>' + item.marka + '</td>';
+                            tbodyHtml += '<td>' + item.model + '</td>';
+                            tbodyHtml += '<td>' + item.godina_proizvodnje + '</td>';
+                            tbodyHtml += '<td>' + item.boje + '</td>';
+                            tbodyHtml += '<td>' + item.motor + '</td>';
+                            tbodyHtml += '<td>' + item.snaga_motora + '</td>';
+                            tbodyHtml += '<td>' + item.vrsta_goriva + '</td>';
+                            tbodyHtml += '<td>' + item.broj_vrata + '</td>';
+                            tbodyHtml += '<td>' + item.cijena + '</td>';
+                            tbodyHtml += '<td>' + item.težina_vozila + '</td>';
+                            tbodyHtml += '</tr>';
+                        });
+                        $('#data-table tbody').html(tbodyHtml);
+                    },
+                    error: function (error) {
+                        console.error('Greška fetchbyyear', error);
+                    },
+                });
+            }
+
+
+            function fetchAutomobilById(id) {
+                $.ajax({
+                    url: `/api/automobili/${id}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        var tbodyHtml = '';
+                        if (data) {
+                            tbodyHtml += '<tr>';
+                            tbodyHtml += '<td>ID: ' + item.id + ' <button onclick="deleteAutomobil(' + item.id + ')">Obriši</button></td>';
+                            tbodyHtml += '<td>' + data.marka + '</td>';
+                            tbodyHtml += '<td>' + data.model + '</td>';
+                            tbodyHtml += '<td>' + data.godina_proizvodnje + '</td>';
+                            tbodyHtml += '<td>' + data.boje + '</td>';
+                            tbodyHtml += '<td>' + data.motor + '</td>';
+                            tbodyHtml += '<td>' + data.snaga_motora + '</td>';
+                            tbodyHtml += '<td>' + data.vrsta_goriva + '</td>';
+                            tbodyHtml += '<td>' + data.broj_vrata + '</td>';
+                            tbodyHtml += '<td>' + data.cijena + '</td>';
+                            tbodyHtml += '<td>' + data.težina_vozila + '</td>';
+                            tbodyHtml += '</tr>';
+                        }
+                        $('#data-table tbody').html(tbodyHtml);
+                    },
+                    error: function (error) {
+                        var tbodyHtml = '<tr><td colspan="11">Nema podataka o automobilu s tim ID-om.</td></tr>';
+                        $('#data-table tbody').html(tbodyHtml);
+                    }
+                });
+            }
+
+
+            fetchData('', 'all'); // Učitavanje podataka pri pokretanju
+        });
+    </script>
+</body>
+
+</html>

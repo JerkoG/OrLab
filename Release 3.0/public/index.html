@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automobili</title>
+    <meta name="description" content="Baza podataka Proizvođača i Automobila">
+    <meta name="author" content="Jerko Gunjača">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="active" href="index.html">Početna</a>
+        <a href="datatable.html">Pregled</a>
+        <a href="add_car.html">Dodaj automobil</a>
+        <a href="update_car.html">Ažuriraj Automobil</a>
+    </div>
+    <div class="content">
+        <div class="container">
+            <h1>Baza podataka Automobili</h1>
+            <p>Ova baza podataka sadrži informacije o proizvođačima i njihovim automobilima.</p>
+            <div class="download-links">
+                <a href="/automobili.csv" download>Preuzmi
+                    CSV</a>
+                <a href="/automobili.json" download>Preuzmi
+                    JSON</a>
+            </div>
+            <h2>Web Aplikacija</h2>
+            <p>Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različite funkcionalnosti:</p>
+            <ul>
+                <li><strong>Pregled podataka:</strong> Prikaz svih zapisa iz baze podataka u tabličnom formatu.</li>
+                <li><strong>Filtriranje podataka:</strong> Mogućnost pretrage podataka po ključnim atributima.</li>
+                <li><strong>Preuzimanje podataka:</strong> Opcije za preuzimanje podataka u CSV i JSON formatima.
+                </li>
+            </ul>
+
+            <h2>Kako koristiti</h2>
+            <ul>
+                <li><strong>Početna stranica:</strong> Na početnoj stranici (<code>index.html</code>) možete pronaći
+                    opće informacije i linkove za preuzimanje podataka.</li>
+                <li><strong>Navigacijska traka:</strong> Koristite navigacijsku traku za prelazak između početne
+                    stranice i stranice za pregled podataka (<code>datatable.html</code>).</li>
+                <li><strong>Filtriranje i preuzimanje:</strong> Na stranici za pregled, koristite filtre za pretragu
+                    i
+                    preuzmite prikazane podatke u željenom formatu.</li>
+            </ul>
+
+            <h2>Struktura Projekta</h2>
+            <ul>
+                <li><code>index.html</code>: Ulazna točka web aplikacije s informacijama i linkovima za preuzimanje.
+                </li>
+                <li><code>datatable.html</code>: Stranica s tabličnim prikazom podataka i mogućnošću filtriranja.
+                </li>
+                <li><code>server.js</code>: Server-side skripta koja upravlja API zahtjevima i poslužuje web
+                    stranice.
+                </li>
+                <li><code>styles.css</code>: Stilovi za oblikovanje web stranica.</li>
+                <li><code>public/</code>: Direktorij koji sadrži statičke datoteke poput CSV i JSON datoteka.</li>
+            </ul>
+
+            <h2>Metapodaci</h2>
+            <ul>
+                <li><strong>Naziv:</strong> Baza podataka Automobili</li>
+                <li><strong>Verzija:</strong> 2.0</li>
+                <li><strong>Datum izrade:</strong> 31.10.2023.</li>
+                <li><strong>Autor:</strong> Jerko Gunjača</li>
+                <li><strong>Broj zapisa:</strong> 10 zapisa o automobilima</li>
+                <li><strong>DBMS:</strong> PostgreSQL</li>
+                <li><strong>Licenca:</strong> MIT Licenca</li>
+                <li><strong>Jezik dokumentacije:</strong> Hrvatski</li>
+                <li><strong>Kontakt:</strong> <a href="mailto:jg53795@fer.hr">jg53795@fer.hr</a></li>
+                <li><strong>Skripte za izvoz:</strong> <code>export_to_csv.py</code>, <code>export_to_json.py</code>
+                </li>
+                <li><strong>Node.js verzija</strong>: v20.9.0</li>
+                <li><strong>Express.js verzija</strong>: V4.18.2</li>
+            </ul>
+
+            <h2>Detalji Baze Podataka</h2>
+            <h3>Tablica "proizvođači"</h3>
+            <p>Sadrži podatke o proizvođačima automobila.</p>
+            <ul>
+                <li><code>id</code>: Jedinstveni identifikator</li>
+                <li><code>naziv_proizvođača</code>: Naziv proizvođača</li>
+                <li><code>sjedište_proizvođača</code>: Sjedište proizvođača</li>
+            </ul>
+
+            <h3>Tablica "automobili"</h3>
+            <p>Sadrži detalje o pojedinim automobilima.</p>
+            <ul>
+                <li><code>id</code> (integer): Jedinstveni identifikator automobila.</li>
+                <li><code>proizvođač_id</code> (integer): Povezuje automobil s odgovarajućim proizvođačem koristeći
+                    ID
+                    proizvođača.</li>
+                <li><code>model</code> (character varying): Model automobila.</li>
+                <li><code>godina_proizvodnje</code> (integer): Godina proizvodnje automobila.</li>
+                <li><code>boja</code> (character varying): Boja automobila.</li>
+                <li><code>motor</code> (character varying): Opis motora automobila.</li>
+                <li><code>snaga_motora</code> (integer): Snaga motora u konjskim snagama.</li>
+                <li><code>vrsta_goriva</code> (character varying): Vrsta goriva koju automobil koristi.</li>
+                <li><code>broj_vrata</code> (integer): Broj vrata na automobilu.</li>
+                <li><code>cijena</code> (numeric): Cijena automobila.</li>
+                <li><code>težina_vozila</code> (numeric): Težina automobila.</li>
+            </ul>
+            <h2>Ažuriranja</h2>
+            <p>Posljednje ažuriranje ove README datoteke izvršeno je 11.11.2023. godine.</p>
+        </div>
+    </div>
+</body>
+
+</html>

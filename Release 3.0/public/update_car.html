@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ažuriraj Automobil</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="index.html">Početna</a>
+        <a href="datatable.html">Pregled</a>
+        <a href="add_car.html">Dodaj Automobil</a>
+        <a class="active" href="update_car.html">Ažuriraj Automobil</a>
+    </div>
+    <div class="content">
+        <div class="container">
+            <h1>Ažuriraj automobil</h1>
+            <form id="update-car-form">
+                <input type="number" id="id" placeholder="ID Automobila" required>
+                <input type="text" id="marka" placeholder="Marka" required>
+                <input type="text" id="model" placeholder="Model" required>
+                <input type="number" id="godina_proizvodnje" placeholder="Godina Proizvodnje" required>
+                <input type="text" id="motor" placeholder="Motor" required>
+                <input type="number" id="snaga_motora" placeholder="Snaga Motora" required>
+                <input type="text" id="vrsta_goriva" placeholder="Vrsta Goriva" required>
+                <input type="number" id="broj_vrata" placeholder="Broj Vrata" required>
+                <input type="number" id="cijena" placeholder="Cijena" required>
+                <input type="number" id="tezina_vozila" placeholder="Težina Vozila" required>
+                <input type="text" id="boje_id" placeholder="Boje ID (npr. 1,2)" required>
+                <button type="submit">Ažuriraj automobil</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#update-car-form').on('submit', function (e) {
+                e.preventDefault();
+
+                const automobilData = {
+                    id: $('#id').val(),
+                    marka: $('#marka').val(),
+                    model: $('#model').val(),
+                    godina_proizvodnje: $('#godina_proizvodnje').val(),
+                    motor: $('#motor').val(),
+                    snaga_motora: $('#snaga_motora').val(),
+                    vrsta_goriva: $('#vrsta_goriva').val(),
+                    broj_vrata: $('#broj_vrata').val(),
+                    cijena: $('#cijena').val(),
+                    tezina_vozila: $('#tezina_vozila').val(),
+                    boje_id: $('#boje_id').val()
+                };
+
+                $.ajax({
+                    url: '/api/automobili/' + automobilData.id,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(automobilData),
+                    success: function (response) {
+                        alert('Automobil ažuriran!');
+                        window.location.href = 'datatable.html'; // Preusmjeravanje na pregled
+                    },
+                    error: function () {
+                        alert('Greška pri ažuriranju automobila.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
