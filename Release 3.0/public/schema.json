@@ -4,8 +4,6 @@
     "type": "array",
     "title": "Baza podataka Automobili",
     "items": {
-        "type": "object",
-        "title": "A Schema",
         "required": [
             "id",
             "marka",

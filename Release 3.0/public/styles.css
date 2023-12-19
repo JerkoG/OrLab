@@ -155,11 +155,7 @@ form input[type="number"],
 form select,
 form button {
     display: inline-block;
-    /* Za centriranje unutar containera */
     width: 40%;
-    /* Smanjena širina */
     margin: 10px 0;
-    /* Dodaje prostor između elemenata */
     margin-left: 25%;
-    /* Dodatno centriranje */
 }
