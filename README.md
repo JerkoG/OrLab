@@ -1,6 +1,6 @@
 # Baza podataka "Automobili"
 
-Ova baza podataka sadrži informacije o proizvođačima i njihovim automobilima.
+Ova baza podataka sadrži informacije o automobilima i dostupnim bojama.
 
 ## Web Aplikacija
 
@@ -9,17 +9,24 @@ Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različi
 - **Pregled podataka**: Prikaz svih zapisa iz baze podataka u tabličnom formatu.
 - **Filtriranje podataka**: Mogućnost pretrage podataka po ključnim atributima.
 - **Preuzimanje podataka**: Opcije za preuzimanje podataka u CSV i JSON formatima.
+- **Dodavanje automobila**: Dodavanje novih zapisa o automobilima.
+- **Ažuriranje automobila**: Ažuriranje postojećih zapisa o automobilima.
+- **Brisanje automobila**: Brisanje postojećih zapisa o automobilima.
 
 ### Kako koristiti
 
 - **Početna stranica**: Na početnoj stranici (`index.html`) možete pronaći opće informacije i linkove za preuzimanje podataka.
-- **Navigacijska traka**: Koristite navigacijsku traku za prelazak između početne stranice i stranice za pregled podataka (`datatable.html`).
-- **Filtriranje i preuzimanje**: Na stranici za pregled, koristite filtre za pretragu i preuzmite prikazane podatke u željenom formatu.
+- **Navigacijska traka**: Koristite navigacijsku traku za prelazak između različitih dijelova aplikacije.
+- **Pregled podataka**: Na stranici za pregled podataka (`datatable.html`) koristite filtre za pretragu i preuzmite prikazane podatke u željenom formatu.
+- **Dodavanje automobila**: Na stranici `add_car.html` možete dodavati nove informacije o automobilima.
+- **Ažuriranje automobila**: Na stranici `update_car.html` možete ažurirati postojeće informacije o automobilima.
 
 ## Struktura Projekta
 
 - `index.html`: Ulazna točka web aplikacije s informacijama i linkovima za preuzimanje.
 - `datatable.html`: Stranica s tabličnim prikazom podataka i mogućnošću filtriranja.
+- `add_car.html`: Stranica za dodavanje novih zapisa o automobilima.
+- `update_car.html`: Stranica za ažuriranje postojećih zapisa o automobilima.
 - `server.js`: Server-side skripta koja upravlja API zahtjevima i poslužuje web stranice.
 - `styles.css`: Stilovi za oblikovanje web stranica.
 - `public/`: Direktorij koji sadrži statičke datoteke poput CSV i JSON datoteka.
@@ -27,7 +34,7 @@ Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različi
 ## Metapodaci
 
 - **Naziv**: Baza podataka Automobili
-- **Verzija**: 2.0
+- **Verzija**: 3.0
 - **Datum izrade**: 31.10.2023.
 - **Autor**: Jerko Gunjača
 - **Broj zapisa**: 10 zapisa o automobilima
@@ -42,16 +49,6 @@ Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različi
 
 ## Detalji Baze Podataka
 
-### Tablica "proizvođači"
-
-Sadrži podatke o proizvođačima automobila.
-
-#### Atributi
-
-- `id`: Jedinstveni identifikator
-- `naziv_proizvođača`: Naziv proizvođača
-- `sjedište_proizvođača`: Sjedište proizvođača
-
 ### Tablica "automobili"
 
 Sadrži detalje o pojedinim automobilima.
@@ -59,10 +56,9 @@ Sadrži detalje o pojedinim automobilima.
 #### Atributi
 
 - `id` (integer): Jedinstveni identifikator automobila.
-- `proizvođač_id` (integer): Povezuje automobil s odgovarajućim proizvođačem koristeći ID proizvođača.
 - `model` (character varying): Model automobila.
 - `godina_proizvodnje` (integer): Godina proizvodnje automobila.
-- `boja` (character varying): Boja automobila.
+- `boje_id` (integer[]): Lista ID-jeva boja u kojima auto može biti.
 - `motor` (character varying): Opis motora automobila.
 - `snaga_motora` (integer): Snaga motora u konjskim snagama.
 - `vrsta_goriva` (character varying): Vrsta goriva koju automobil koristi.
@@ -70,6 +66,15 @@ Sadrži detalje o pojedinim automobilima.
 - `cijena` (numeric): Cijena automobila.
 - `težina_vozila` (numeric): Težina automobila.
 
+### Tablica "boje"
+
+Sadrži informacije o dostupnim bojama za automobile.
+
+#### Atributi
+
+- `id`: Jedinstveni identifikator
+- `naziv_boje`: Naziv boje
+
 ## Ažuriranja
 
-Posljednje ažuriranje ove README datoteke izvršeno je 11.11.2023. godine.
+Posljednje ažuriranje ove README datoteke izvršeno je 19.12.2023. godine.
