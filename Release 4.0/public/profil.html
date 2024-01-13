@@ -27,21 +27,20 @@
         <div class="container">
             <h1>Korisnički Profil</h1>
             <div id="profileInfo">
-                <!-- Profile information will be loaded here -->
+                <!-- Profile info -->
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Check if user is authenticated
+            // Provjera je li prijavljen
             fetch('/auth-status')
                 .then(response => response.json())
                 .then(data => {
                     if (!data.isAuthenticated) {
-                        // Redirect to login page if not authenticated
+                        // Redirect na login page ako nije prijavljen
                         window.location.href = '/login';
                     } else {
-                        // Fetch and display user profile information
                         fetch('/profile')
                             .then(response => response.json())
                             .then(profileData => {
@@ -49,7 +48,6 @@
                                     <p>Ime: ${profileData.name}</p>
                                     <p>Nadimak: ${profileData.nickname}</p>
                                     <p>Email: ${profileData.email}</p>
-                                    <p>User ID: ${profileData.user_id}</p>
                                 `;
                             })
                             .catch(error => console.error('Error:', error));

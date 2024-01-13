@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Ažuriraj Automobil</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -38,7 +38,7 @@
             </form>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             fetch('/auth-status')
@@ -60,7 +60,7 @@
 
             // Handle click login
             document.getElementById('loginLink').addEventListener('click', function () {
-                window.location.href = '/login'; // Redirect to login
+                window.location.href = '/login'; // Redirect na login
             });
 
             // Handle click refresh data
@@ -79,7 +79,7 @@
 
             // Handle click logout
             document.getElementById('logoutLink').addEventListener('click', function () {
-                window.location.href = '/logout'; // Redirect to logout
+                window.location.href = '/logout'; // Redirect na logout
             });
         });
 
