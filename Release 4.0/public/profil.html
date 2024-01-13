@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korisnički profil</title>
+    <meta name="description" content="Baza podataka Automobili">
+    <meta name="author" content="Jerko Gunjača">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="index.html">Početna</a>
+        <a href="datatable.html">Pregled</a>
+        <a href="add_car.html">Dodaj automobil</a>
+        <a href="update_car.html">Ažuriraj Automobil</a>
+        <a href="#" id="loginLink">Prijava</a>
+        <a class="active" href="profil.html" id="profileLink" style="display:none;">Korisnički profil</a>
+        <a href="#" id="refreshDataLink" style="display:none;">Osvježi preslike</a>
+        <a href="#" id="logoutLink" style="display:none;">Odjava</a>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <h1>Korisnički Profil</h1>
+            <div id="profileInfo">
+                <!-- Profile information will be loaded here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if user is authenticated
+            fetch('/auth-status')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.isAuthenticated) {
+                        // Redirect to login page if not authenticated
+                        window.location.href = '/login';
+                    } else {
+                        // Fetch and display user profile information
+                        fetch('/profile')
+                            .then(response => response.json())
+                            .then(profileData => {
+                                document.getElementById('profileInfo').innerHTML = `
+                                    <p>Ime: ${profileData.name}</p>
+                                    <p>Nadimak: ${profileData.nickname}</p>
+                                    <p>Email: ${profileData.email}</p>
+                                    <p>User ID: ${profileData.user_id}</p>
+                                `;
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/auth-status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isAuthenticated) {
+                        document.getElementById('loginLink').style.display = 'none';
+                        document.getElementById('profileLink').style.display = 'block';
+                        document.getElementById('refreshDataLink').style.display = 'block';
+                        document.getElementById('logoutLink').style.display = 'block';
+                    } else {
+                        document.getElementById('loginLink').style.display = 'block';
+                        document.getElementById('profileLink').style.display = 'none';
+                        document.getElementById('refreshDataLink').style.display = 'none';
+                        document.getElementById('logoutLink').style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            // Handle click login
+            document.getElementById('loginLink').addEventListener('click', function () {
+                window.location.href = '/login'; // Redirect to login
+            });
+
+            // Handle click refresh data
+            document.getElementById('refreshDataLink').addEventListener('click', function () {
+                event.preventDefault();
+                searchTerm = '';
+                searchColumn = 'all';
+                format = 'json';
+                window.location.href = `/api/automobili/download?search=${searchTerm}&column=${searchColumn}&format=${format}`;
+                setTimeout(() => {
+                    format = 'csv';
+                    window.location.href = `/api/automobili/download?search=${searchTerm}&column=${searchColumn}&format=${format}`;
+                }, 1000);
+            });
+
+
+            // Handle click logout
+            document.getElementById('logoutLink').addEventListener('click', function () {
+                window.location.href = '/logout'; // Redirect to logout
+            });
+        });
+
+
+
+    </script>
+</body>

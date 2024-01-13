@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj Automobil</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <body>
+        <div class="navbar">
+            <a href="index.html">Početna</a>
+            <a href="datatable.html">Pregled</a>
+            <a class="active" href="add_car.html">Dodaj Automobil</a>
+            <a href="update_car.html">Ažuriraj Automobil</a>
+            <a href="#" id="loginLink">Prijava</a>
+            <a href="profil.html" id="profileLink" style="display:none;">Korisnički profil</a>
+            <a href="#" id="refreshDataLink" style="display:none;">Osvježi preslike</a>
+            <a href="#" id="logoutLink" style="display:none;">Odjava</a>
+
+        </div>
+        <div class="content">
+            <div class="container">
+                <h1>Dodaj novi automobil</h1>
+                <form id="add-car-form">
+                    <input type="text" id="marka" placeholder="Marka" required>
+                    <input type="text" id="model" placeholder="Model" required>
+                    <input type="number" id="godina_proizvodnje" placeholder="Godina Proizvodnje" required>
+                    <input type="text" id="motor" placeholder="Motor" required>
+                    <input type="number" id="snaga_motora" placeholder="Snaga Motora" required>
+                    <input type="text" id="vrsta_goriva" placeholder="Vrsta Goriva" required>
+                    <input type="number" id="broj_vrata" placeholder="Broj Vrata" required>
+                    <input type="number" id="cijena" placeholder="Cijena" required>
+                    <input type="number" id="tezina_vozila" placeholder="Težina Vozila" required>
+                    <input type="text" id="boje_id" placeholder="Boje ID (npr. 1,2)" required>
+                    <button type="submit">Dodaj Automobil</button>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#add-car-form').on('submit', function (e) {
+                    e.preventDefault();
+
+                    const automobilData = {
+                        marka: $('#marka').val(),
+                        model: $('#model').val(),
+                        godina_proizvodnje: $('#godina_proizvodnje').val(),
+                        motor: $('#motor').val(),
+                        snaga_motora: $('#snaga_motora').val(),
+                        vrsta_goriva: $('#vrsta_goriva').val(),
+                        broj_vrata: $('#broj_vrata').val(),
+                        cijena: $('#cijena').val(),
+                        tezina_vozila: $('#tezina_vozila').val(),
+                        boje_id: $('#boje_id').val()
+                    };
+
+                    $.ajax({
+                        url: '/api/automobili',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(automobilData),
+                        success: function (response) {
+                            alert('Automobil dodan!');
+                            window.location.href = 'datatable.html'; // Preusmjeravanje na pregled
+                        },
+                        error: function () {
+                            alert('Greška pri dodavanju automobila.');
+                        }
+                    });
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                fetch('/auth-status')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.isAuthenticated) {
+                            document.getElementById('loginLink').style.display = 'none';
+                            document.getElementById('profileLink').style.display = 'block';
+                            document.getElementById('refreshDataLink').style.display = 'block';
+                            document.getElementById('logoutLink').style.display = 'block';
+                        } else {
+                            document.getElementById('loginLink').style.display = 'block';
+                            document.getElementById('profileLink').style.display = 'none';
+                            document.getElementById('refreshDataLink').style.display = 'none';
+                            document.getElementById('logoutLink').style.display = 'none';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+
+                // Handle click login
+                document.getElementById('loginLink').addEventListener('click', function () {
+                    window.location.href = '/login'; // Redirect to login
+                });
+
+                // Handle click refresh data
+                document.getElementById('refreshDataLink').addEventListener('click', function () {
+                    event.preventDefault();
+                    searchTerm = '';
+                    searchColumn = 'all';
+                    format = 'json';
+                    window.location.href = `/api/automobili/download?search=${searchTerm}&column=${searchColumn}&format=${format}`;
+                    setTimeout(() => {
+                        format = 'csv';
+                        window.location.href = `/api/automobili/download?search=${searchTerm}&column=${searchColumn}&format=${format}`;
+                    }, 1000);
+                });
+
+
+                // Handle click logout
+                document.getElementById('logoutLink').addEventListener('click', function () {
+                    window.location.href = '/logout'; // Redirect to logout
+                });
+            });
+        </script>
+    </body>
+
+</html>

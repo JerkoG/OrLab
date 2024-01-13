@@ -1,0 +1,431 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/JerkoG/OrLab/main/Release%203.0/public/schema.json",
+    "type": "array",
+    "title": "Baza podataka Automobili",
+    "items": {
+        "required": [
+            "id",
+            "marka",
+            "model",
+            "godina_proizvodnje",
+            "boje",
+            "motor",
+            "snaga_motora",
+            "vrsta_goriva",
+            "broj_vrata",
+            "cijena",
+            "težina_vozila"
+        ],
+        "properties": {
+            "id": {
+                "type": "integer",
+                "title": "The id Schema",
+                "examples": [
+                    100,
+                    101,
+                    102,
+                    103,
+                    104,
+                    105,
+                    106,
+                    107,
+                    108,
+                    109
+                ]
+            },
+            "marka": {
+                "type": "string",
+                "title": "The marka Schema",
+                "examples": [
+                    "Toyota",
+                    "Ford",
+                    "Honda",
+                    "BMW",
+                    "Volkswagen"
+                ]
+            },
+            "model": {
+                "type": "string",
+                "title": "The model Schema",
+                "examples": [
+                    "Corolla",
+                    "Fiesta",
+                    "Accord",
+                    "3 Series",
+                    "Passat",
+                    "Rav4",
+                    "Explorer",
+                    "Civic",
+                    "X7",
+                    "Jetta"
+                ]
+            },
+            "godina_proizvodnje": {
+                "type": "integer",
+                "title": "The godina_proizvodnje Schema",
+                "examples": [
+                    2022,
+                    2021,
+                    2023
+                ]
+            },
+            "boje": {
+                "type": "string",
+                "title": "The boje Schema",
+                "examples": [
+                    "Plava, Zelena",
+                    "Zelena, Crvena",
+                    "Crvena, Crna",
+                    "Crna, Bijela",
+                    "Plava, Bijela",
+                    "Plava, Crvena",
+                    "Zelena, Crna",
+                    "Crvena, Bijela",
+                    "Plava, Crna",
+                    "Zelena, Bijela"
+                ]
+            },
+            "motor": {
+                "type": "string",
+                "title": "The motor Schema",
+                "examples": [
+                    "2.0L I4",
+                    "1.6L I4",
+                    "1.8L I4",
+                    "2.5L I4",
+                    "3.0L V6",
+                    "1.5L I4",
+                    "3.0L Inline-6",
+                    "1.4L I4"
+                ]
+            },
+            "snaga_motora": {
+                "type": "integer",
+                "title": "The snaga_motora Schema",
+                "examples": [
+                    168,
+                    120,
+                    192,
+                    255,
+                    174,
+                    203,
+                    300,
+                    335,
+                    147
+                ]
+            },
+            "vrsta_goriva": {
+                "type": "string",
+                "title": "The vrsta_goriva Schema",
+                "examples": [
+                    "Benzin",
+                    "Dizel"
+                ]
+            },
+            "broj_vrata": {
+                "type": "integer",
+                "title": "The broj_vrata Schema",
+                "examples": [
+                    4,
+                    5
+                ]
+            },
+            "cijena": {
+                "type": "string",
+                "title": "The cijena Schema",
+                "examples": [
+                    "25000.00",
+                    "18000.00",
+                    "27000.00",
+                    "35000.00",
+                    "28000.00",
+                    "29000.00",
+                    "40000.00",
+                    "55000.00",
+                    "22000.00"
+                ]
+            },
+            "težina_vozila": {
+                "type": "string",
+                "title": "The težina_vozila Schema",
+                "examples": [
+                    "1300.00",
+                    "1100.00",
+                    "1400.00",
+                    "1500.00",
+                    "1600.00",
+                    "1800.00",
+                    "1200.00",
+                    "2100.00"
+                ]
+            }
+        },
+        "examples": [
+            {
+                "id": 100,
+                "marka": "Toyota",
+                "model": "Corolla",
+                "godina_proizvodnje": 2022,
+                "boje": "Plava, Zelena",
+                "motor": "2.0L I4",
+                "snaga_motora": 168,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "25000.00",
+                "težina_vozila": "1300.00"
+            },
+            {
+                "id": 101,
+                "marka": "Ford",
+                "model": "Fiesta",
+                "godina_proizvodnje": 2021,
+                "boje": "Zelena, Crvena",
+                "motor": "1.6L I4",
+                "snaga_motora": 120,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "18000.00",
+                "težina_vozila": "1100.00"
+            },
+            {
+                "id": 102,
+                "marka": "Honda",
+                "model": "Accord",
+                "godina_proizvodnje": 2022,
+                "boje": "Crvena, Crna",
+                "motor": "2.0L I4",
+                "snaga_motora": 192,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "27000.00",
+                "težina_vozila": "1400.00"
+            },
+            {
+                "id": 103,
+                "marka": "BMW",
+                "model": "3 Series",
+                "godina_proizvodnje": 2021,
+                "boje": "Crna, Bijela",
+                "motor": "2.0L I4",
+                "snaga_motora": 255,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "35000.00",
+                "težina_vozila": "1500.00"
+            },
+            {
+                "id": 104,
+                "marka": "Volkswagen",
+                "model": "Passat",
+                "godina_proizvodnje": 2023,
+                "boje": "Plava, Bijela",
+                "motor": "1.8L I4",
+                "snaga_motora": 174,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "28000.00",
+                "težina_vozila": "1600.00"
+            },
+            {
+                "id": 105,
+                "marka": "Toyota",
+                "model": "Rav4",
+                "godina_proizvodnje": 2022,
+                "boje": "Plava, Crvena",
+                "motor": "2.5L I4",
+                "snaga_motora": 203,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "29000.00",
+                "težina_vozila": "1400.00"
+            },
+            {
+                "id": 106,
+                "marka": "Ford",
+                "model": "Explorer",
+                "godina_proizvodnje": 2022,
+                "boje": "Zelena, Crna",
+                "motor": "3.0L V6",
+                "snaga_motora": 300,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 5,
+                "cijena": "40000.00",
+                "težina_vozila": "1800.00"
+            },
+            {
+                "id": 107,
+                "marka": "Honda",
+                "model": "Civic",
+                "godina_proizvodnje": 2023,
+                "boje": "Crvena, Bijela",
+                "motor": "1.5L I4",
+                "snaga_motora": 174,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "27000.00",
+                "težina_vozila": "1200.00"
+            },
+            {
+                "id": 108,
+                "marka": "BMW",
+                "model": "X7",
+                "godina_proizvodnje": 2023,
+                "boje": "Plava, Crna",
+                "motor": "3.0L Inline-6",
+                "snaga_motora": 335,
+                "vrsta_goriva": "Dizel",
+                "broj_vrata": 5,
+                "cijena": "55000.00",
+                "težina_vozila": "2100.00"
+            },
+            {
+                "id": 109,
+                "marka": "Volkswagen",
+                "model": "Jetta",
+                "godina_proizvodnje": 2022,
+                "boje": "Zelena, Bijela",
+                "motor": "1.4L I4",
+                "snaga_motora": 147,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "22000.00",
+                "težina_vozila": "1300.00"
+            }
+        ]
+    },
+    "examples": [
+        [
+            {
+                "id": 100,
+                "marka": "Toyota",
+                "model": "Corolla",
+                "godina_proizvodnje": 2022,
+                "boje": "Plava, Zelena",
+                "motor": "2.0L I4",
+                "snaga_motora": 168,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "25000.00",
+                "težina_vozila": "1300.00"
+            },
+            {
+                "id": 101,
+                "marka": "Ford",
+                "model": "Fiesta",
+                "godina_proizvodnje": 2021,
+                "boje": "Zelena, Crvena",
+                "motor": "1.6L I4",
+                "snaga_motora": 120,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "18000.00",
+                "težina_vozila": "1100.00"
+            },
+            {
+                "id": 102,
+                "marka": "Honda",
+                "model": "Accord",
+                "godina_proizvodnje": 2022,
+                "boje": "Crvena, Crna",
+                "motor": "2.0L I4",
+                "snaga_motora": 192,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "27000.00",
+                "težina_vozila": "1400.00"
+            },
+            {
+                "id": 103,
+                "marka": "BMW",
+                "model": "3 Series",
+                "godina_proizvodnje": 2021,
+                "boje": "Crna, Bijela",
+                "motor": "2.0L I4",
+                "snaga_motora": 255,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "35000.00",
+                "težina_vozila": "1500.00"
+            },
+            {
+                "id": 104,
+                "marka": "Volkswagen",
+                "model": "Passat",
+                "godina_proizvodnje": 2023,
+                "boje": "Plava, Bijela",
+                "motor": "1.8L I4",
+                "snaga_motora": 174,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "28000.00",
+                "težina_vozila": "1600.00"
+            },
+            {
+                "id": 105,
+                "marka": "Toyota",
+                "model": "Rav4",
+                "godina_proizvodnje": 2022,
+                "boje": "Plava, Crvena",
+                "motor": "2.5L I4",
+                "snaga_motora": 203,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "29000.00",
+                "težina_vozila": "1400.00"
+            },
+            {
+                "id": 106,
+                "marka": "Ford",
+                "model": "Explorer",
+                "godina_proizvodnje": 2022,
+                "boje": "Zelena, Crna",
+                "motor": "3.0L V6",
+                "snaga_motora": 300,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 5,
+                "cijena": "40000.00",
+                "težina_vozila": "1800.00"
+            },
+            {
+                "id": 107,
+                "marka": "Honda",
+                "model": "Civic",
+                "godina_proizvodnje": 2023,
+                "boje": "Crvena, Bijela",
+                "motor": "1.5L I4",
+                "snaga_motora": 174,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "27000.00",
+                "težina_vozila": "1200.00"
+            },
+            {
+                "id": 108,
+                "marka": "BMW",
+                "model": "X7",
+                "godina_proizvodnje": 2023,
+                "boje": "Plava, Crna",
+                "motor": "3.0L Inline-6",
+                "snaga_motora": 335,
+                "vrsta_goriva": "Dizel",
+                "broj_vrata": 5,
+                "cijena": "55000.00",
+                "težina_vozila": "2100.00"
+            },
+            {
+                "id": 109,
+                "marka": "Volkswagen",
+                "model": "Jetta",
+                "godina_proizvodnje": 2022,
+                "boje": "Zelena, Bijela",
+                "motor": "1.4L I4",
+                "snaga_motora": 147,
+                "vrsta_goriva": "Benzin",
+                "broj_vrata": 4,
+                "cijena": "22000.00",
+                "težina_vozila": "1300.00"
+            }
+        ]
+    ]
+}

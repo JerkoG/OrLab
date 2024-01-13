@@ -1,0 +1,500 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Automobili API",
+        "description": "API za upravljanje informacijama o automobilima",
+        "version": "3.0.0",
+        "contact": {
+            "name": "Jerko Gunjača",
+            "email": "jg53795@fer.hr"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/JerkoG/OrLab/blob/main/LICENSE"
+        }
+    },
+    "paths": {
+        "/api/automobili": {
+            "get": {
+                "summary": "Dohvati automobile",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Ključna riječ za pretragu",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "column",
+                        "in": "query",
+                        "description": "Stupac za pretragu",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješan odgovor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "originalData": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Car"
+                                            }
+                                        },
+                                        "jsonLdData": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/JsonLdCar"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "originalData": [
+                                        {
+                                            "id": 1,
+                                            "marka": "Volkswagen",
+                                            "model": "Golf",
+                                            "godina_proizvodnje": 2019,
+                                            "boje": "Crna, Bijela",
+                                            "motor": "2.0 TDI",
+                                            "snaga_motora": 150,
+                                            "vrsta_goriva": "Dizel",
+                                            "broj_vrata": 5,
+                                            "cijena": 20000,
+                                            "težina_vozila": 1200
+                                        }
+                                    ],
+                                    "jsonLdData": [
+                                        {
+                                            "@context": "https://schema.org",
+                                            "@type": "Car",
+                                            "schema:brand": "Volkswagen",
+                                            "schema:model": "Golf"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Dodaj novi automobil",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "marka": "Volkswagen",
+                                "model": "Golf",
+                                "godina_proizvodnje": 2019,
+                                "motor": "2.0 TDI",
+                                "snaga_motora": 150,
+                                "vrsta_goriva": "Dizel",
+                                "broj_vrata": 5,
+                                "cijena": 20000,
+                                "težina_vozila": 1200,
+                                "boje_id": [
+                                    1,
+                                    2
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Novi automobil je uspješno dodan",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "marka": "Volkswagen",
+                                    "model": "Golf",
+                                    "godina_proizvodnje": 2019,
+                                    "boje": "Crna, Bijela",
+                                    "motor": "2.0 TDI",
+                                    "snaga_motora": 150,
+                                    "vrsta_goriva": "Dizel",
+                                    "broj_vrata": 5,
+                                    "cijena": 20000,
+                                    "težina_vozila": 1200
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/automobili/download": {
+            "get": {
+                "summary": "Preuzmi podatke o automobilima",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Ključna riječ za pretragu",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "column",
+                        "in": "query",
+                        "description": "Stupac za pretragu",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "Format datoteke (json ili csv)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješan odgovor",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "marka": "Volkswagen",
+                                        "model": "Golf",
+                                        "godina_proizvodnje": 2019,
+                                        "boje": "Crna, Bijela",
+                                        "motor": "2.0 TDI",
+                                        "snaga_motora": 150,
+                                        "vrsta_goriva": "Dizel",
+                                        "broj_vrata": 5,
+                                        "cijena": 20000,
+                                        "težina_vozila": 1200
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/automobili/cijena": {
+            "get": {
+                "summary": "Filtriraj automobile po cijeni",
+                "parameters": [
+                    {
+                        "name": "minCijena",
+                        "in": "query",
+                        "description": "Minimalna cijena",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "maxCijena",
+                        "in": "query",
+                        "description": "Maksimalna cijena",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješan odgovor",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "marka": "Volkswagen",
+                                        "model": "Golf",
+                                        "godina_proizvodnje": 2019,
+                                        "boje": "Crna, Bijela",
+                                        "motor": "2.0 TDI",
+                                        "snaga_motora": 150,
+                                        "vrsta_goriva": "Dizel",
+                                        "broj_vrata": 5,
+                                        "cijena": 20000,
+                                        "težina_vozila": 1200
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/automobili/godina": {
+            "get": {
+                "summary": "Filtriraj automobile po godini proizvodnje",
+                "parameters": [
+                    {
+                        "name": "minGodina",
+                        "in": "query",
+                        "description": "Minimalna godina proizvodnje",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "maxGodina",
+                        "in": "query",
+                        "description": "Maksimalna godina proizvodnje",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješan odgovor",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "marka": "Volkswagen",
+                                        "model": "Golf",
+                                        "godina_proizvodnje": 2019,
+                                        "boje": "Crna, Bijela",
+                                        "motor": "2.0 TDI",
+                                        "snaga_motora": 150,
+                                        "vrsta_goriva": "Dizel",
+                                        "broj_vrata": 5,
+                                        "cijena": 20000,
+                                        "težina_vozila": 1200
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/automobili/{id}": {
+            "get": {
+                "summary": "Dohvati automobil po ID-u",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID automobila",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješan odgovor",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "marka": "Volkswagen",
+                                    "model": "Golf",
+                                    "godina_proizvodnje": 2019,
+                                    "boje": "Crna, Bijela",
+                                    "motor": "2.0 TDI",
+                                    "snaga_motora": 150,
+                                    "vrsta_goriva": "Dizel",
+                                    "broj_vrata": 5,
+                                    "cijena": 20000,
+                                    "težina_vozila": 1200
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Automobil nije pronađen"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Obriši automobil po ID-u",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID automobila",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Automobil je uspješno obrisan",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Automobil obrisan."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Automobil nije pronađen"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Ažuriraj automobil po ID-u",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID automobila",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "marka": "Volkswagen",
+                                "model": "Golf",
+                                "godina_proizvodnje": 2019,
+                                "motor": "2.0 TDI",
+                                "snaga_motora": 150,
+                                "vrsta_goriva": "Dizel",
+                                "broj_vrata": 5,
+                                "cijena": 20000,
+                                "tezina_vozila": 1200,
+                                "boje_id": [
+                                    1,
+                                    2
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Automobil je uspješno ažuriran",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "marka": "Volkswagen",
+                                    "model": "Golf",
+                                    "godina_proizvodnje": 2019,
+                                    "boje": "Crna, Bijela",
+                                    "motor": "2.0 TDI",
+                                    "snaga_motora": 150,
+                                    "vrsta_goriva": "Dizel",
+                                    "broj_vrata": 5,
+                                    "cijena": 20000,
+                                    "težina_vozila": 1200
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Automobil nije pronađen"
+                    }
+                }
+            }
+        },
+        "components": {
+            "schemas": {
+                "Car": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "example": 100
+                        },
+                        "marka": {
+                            "type": "string",
+                            "example": "Toyota"
+                        },
+                        "model": {
+                            "type": "string",
+                            "example": "Corolla"
+                        },
+                        "godina_proizvodnje": {
+                            "type": "integer",
+                            "example": 2022
+                        },
+                        "boje": {
+                            "type": "string",
+                            "example": "Plava, Zelena"
+                        },
+                        "motor": {
+                            "type": "string",
+                            "example": "2.0L I4"
+                        },
+                        "snaga_motora": {
+                            "type": "integer",
+                            "example": 168
+                        },
+                        "vrsta_goriva": {
+                            "type": "string",
+                            "example": "Benzin"
+                        },
+                        "broj_vrata": {
+                            "type": "integer",
+                            "example": 4
+                        },
+                        "cijena": {
+                            "type": "string",
+                            "example": "25000.00"
+                        },
+                        "težina_vozila": {
+                            "type": "string",
+                            "example": "1300.00"
+                        }
+                    }
+                },
+                "JsonLdCar": {
+                    "type": "object",
+                    "properties": {
+                        "@context": {
+                            "type": "string",
+                            "example": "https://schema.org"
+                        },
+                        "@type": {
+                            "type": "string",
+                            "example": "Car"
+                        },
+                        "schema:brand": {
+                            "type": "string"
+                        },
+                        "schema:model": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

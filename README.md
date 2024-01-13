@@ -6,12 +6,15 @@ Ova baza podataka sadrži informacije o automobilima i dostupnim bojama.
 
 Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različite funkcionalnosti:
 
+- **Autentifikacija**: Za pristup nekim funkcionalnostima potrebno je prijaviti se ili registrirati.
 - **Pregled podataka**: Prikaz svih zapisa iz baze podataka u tabličnom formatu.
 - **Filtriranje podataka**: Mogućnost pretrage podataka po ključnim atributima.
 - **Preuzimanje podataka**: Opcije za preuzimanje podataka u CSV i JSON formatima.
 - **Dodavanje automobila**: Dodavanje novih zapisa o automobilima.
 - **Ažuriranje automobila**: Ažuriranje postojećih zapisa o automobilima.
 - **Brisanje automobila**: Brisanje postojećih zapisa o automobilima.
+- **Prijava i registracija korisnika**: Autentifikacija korisnika putem Auth0 servisa.
+- **Upravljanje korisničkim profilom**: Pregled korisničkog profila.
 
 ### Kako koristiti
 
@@ -20,6 +23,7 @@ Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različi
 - **Pregled podataka**: Na stranici za pregled podataka (`datatable.html`) koristite filtre za pretragu i preuzmite prikazane podatke u željenom formatu.
 - **Dodavanje automobila**: Na stranici `add_car.html` možete dodavati nove informacije o automobilima.
 - **Ažuriranje automobila**: Na stranici `update_car.html` možete ažurirati postojeće informacije o automobilima.
+- **Autentifikacija korisnika**: Pristupite funkcionalnostima prijave i registracije putem linka "Prijava" u navigacijskoj traci.
 
 ## Struktura Projekta
 
@@ -27,6 +31,7 @@ Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različi
 - `datatable.html`: Stranica s tabličnim prikazom podataka i mogućnošću filtriranja.
 - `add_car.html`: Stranica za dodavanje novih zapisa o automobilima.
 - `update_car.html`: Stranica za ažuriranje postojećih zapisa o automobilima.
+- `profil.html`: Stranica za prikaz korisničkog profila i upravljanje korisničkim postavkama.
 - `server.js`: Server-side skripta koja upravlja API zahtjevima i poslužuje web stranice.
 - `styles.css`: Stilovi za oblikovanje web stranica.
 - `public/`: Direktorij koji sadrži statičke datoteke poput CSV i JSON datoteka.
@@ -34,8 +39,9 @@ Web aplikacija omogućava korisnicima interakciju s bazom podataka kroz različi
 ## Metapodaci
 
 - **Naziv**: Baza podataka Automobili
-- **Verzija**: 3.0
+- **Verzija**: 4.0
 - **Datum izrade**: 31.10.2023.
+- **Datum posljednjeg ažuriranja**: 13.1.2024.
 - **Autor**: Jerko Gunjača
 - **Broj zapisa**: 10 zapisa o automobilima
 - **DBMS**: PostgreSQL
@@ -75,6 +81,3 @@ Sadrži informacije o dostupnim bojama za automobile.
 - `id`: Jedinstveni identifikator
 - `naziv_boje`: Naziv boje
 
-## Ažuriranja
-
-Posljednje ažuriranje ove README datoteke izvršeno je 19.12.2023. godine.
